@@ -11,8 +11,10 @@ authors = [
 
 description = \
     """
-    The GNU Compiler Collection (GCC) is a compiler system produced by the GNU Project supporting various programming languages.
-    GCC is a key component of the GNU toolchain and the standard compiler for most projects related to GNU and Linux, including the Linux kernel.
+    The GNU Compiler Collection (GCC) is a compiler system produced by the GNU Project
+    supporting various programming languages.
+    GCC is a key component of the GNU toolchain and the standard compiler for most projects
+    related to GNU and Linux, including the Linux kernel.
     """
 
 variants = [
@@ -31,7 +33,10 @@ tools = [
     "gcov"
 ]
 
-#TODO: Use the SHA1 of the archive instead.
+with scope("config") as config:
+    config.build_thread_count = "logical_cores"
+
+# TODO: Use the SHA1 of the archive instead.
 uuid = "gcc-6.3.1"
 
 def commands():
