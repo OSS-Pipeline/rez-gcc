@@ -70,6 +70,6 @@ ExternalProject_Add(
 install(
     CODE
     "execute_process(
-        COMMAND echo \"\n=== GCC-${gcc_version} SETUP FINISHED ===\n\"
+        COMMAND echo \"\n[CMAKE] GCC-${gcc_version} PACKAGE SETUP FINISHED!\n\"
     )"
 )
