@@ -8,13 +8,13 @@ echo -e "\n==============="
 echo -e "=== INSTALL ==="
 echo -e "===============\n"
 
-echo -e "BUILD PATH: ${build_path}\n"
+echo -e "BUILD PATH: ${build_path}"
 echo -e "GCC VERSION: ${gcc_version}"
 
 cd $build_path
 
 # We finally install GCC
-echo -e "Installing GCC-${gcc_version}...\n"
+echo -e "\nInstalling GCC-${gcc_version}...\n"
 
 make install
 

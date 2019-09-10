@@ -8,13 +8,13 @@ echo -e "\n============="
 echo -e "=== BUILD ==="
 echo -e "=============\n"
 
-echo -e "BUILD PATH: ${build_path}\n"
+echo -e "BUILD PATH: ${build_path}"
 echo -e "GCC VERSION: ${gcc_version}"
 
 cd $build_path
 
 # We build GCC
-echo -e "Building GCC-${gcc_version}...\n"
+echo -e "\nBuilding GCC-${gcc_version}...\n"
 
 make -j${REZ_BUILD_THREAD_COUNT}
 
