@@ -1,13 +1,15 @@
 #!/usr/bin/bash
 
-echo "\n=== IN THE BUILD SCRIPT ===\n"
-
 build_path=$1
 gcc_version=$2
 
+# We print the arguments passed to the Bash script
 echo -e "\n============="
 echo -e "=== BUILD ==="
 echo -e "=============\n"
+
+echo -e "BUILD PATH: ${build_path}\n"
+echo -e "GCC VERSION: ${gcc_version}"
 
 cd $build_path
 

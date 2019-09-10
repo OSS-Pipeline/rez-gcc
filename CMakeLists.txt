@@ -50,7 +50,7 @@ rez_set_archive(
 )
 
 # The environment variable REZ_TMP_PATH is meant to point to a location such as "/tmp/rez".
-set(EXTRACT_DIR ${REZ_TMP_PATH}/gcc/${gcc_version})
+set(EXTRACT_DIR $ENV{REZ_TMP_PATH}/gcc/${gcc_version})
 set(BUILD_DIR ${EXTRACT_DIR}/objdir)
 
 # We configure/build/install GCC through the ExternalProject_Add macro,
@@ -60,7 +60,7 @@ ExternalProject_Add(
     URL ${gcc_url}
     PREFIX gcc
     SOURCE_DIR ${EXTRACT_DIR}
-    CONFIGURE_COMMAND bash ${CMAKE_SOURCE_DIR}/configure.sh ${EXTRACT_DIR} ${BUILD_DIR} ${CMAKE_INSTALL_PREFIX} ${gcc_version} ${gmp_version} ${mpfr_version} ${mpc_version} ${isl_version} ${cloog_version}
+    CONFIGURE_COMMAND bash ${CMAKE_SOURCE_DIR}/configure.sh ${EXTRACT_DIR} ${CMAKE_INSTALL_PREFIX} ${gcc_version} ${gmp_version} ${mpfr_version} ${mpc_version} ${isl_version} ${cloog_version}
     BUILD_COMMAND bash ${CMAKE_SOURCE_DIR}/build.sh ${BUILD_DIR} ${gcc_version}
     INSTALL_COMMAND bash ${CMAKE_SOURCE_DIR}/install.sh ${BUILD_DIR} ${gcc_version}
 )
