@@ -55,6 +55,8 @@ set(BUILD_DIR ${EXTRACT_DIR}/objdir)
 
 # We configure/build/install GCC through the ExternalProject_Add macro,
 # using three different shell scripts for each of these steps.
+# If necessary, it is possible to skip one of these steps by replacing the command
+# by "", an empty string.
 ExternalProject_Add(
     build_gcc
     URL ${gcc_url}
