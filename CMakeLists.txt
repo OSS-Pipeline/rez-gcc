@@ -4,12 +4,11 @@ include(RezBuild)
 include(RezRepository)
 include(ExternalProject)
 
-set(gcc_version 6.3.1)
-set(gmp_version 6.1.0)
-set(mpfr_version 3.1.4)
-set(mpc_version 1.0.3)
-set(isl_version 0.18)
-set(cloog_version 0.18.1)
+set(GMP_VERSION 6.1.0)
+set(MPFR_VERSION 3.1.4)
+set(MPC_VERSION 1.0.3)
+set(ISL_VERSION 0.18)
+set(CLOOG_VERSION 0.18.1)
 
 # GCC
 # It should be noted that trying to build GCC < 7.2 with glibc > 2.26 will generate two types of compilation errors,
@@ -19,52 +18,52 @@ set(cloog_version 0.18.1)
 # * https://github.com/easybuilders/easybuild-easyconfigs/blob/master/easybuild/easyconfigs/g/GCCcore/GCCcore-6.3.0_fix-linux-unwind-fix-ucontext.patch
 # * https://github.com/easybuilders/easybuild-easyconfigs/blob/master/easybuild/easyconfigs/g/GCCcore/GCCcore-6.3.0_fix-sanitizer_linux.patch
 rez_set_archive(
-    gcc_url gcc/gcc-${gcc_version}.tar.bz2
+    GCC_URL gcc/gcc-${REZ_BUILD_PROJECT_VERSION}.tar.bz2
     http://vault.centos.org/7.5.1804/sclo/Source/rh/devtoolset-6/devtoolset-6-gcc-6.3.1-3.1.el7.src.rpm
     # Or https://ftp.gnu.org/gnu/gcc/gcc-6.3.0/gcc-6.3.0.tar.bz2 is we want to use 6.3.0, since 6.3.1 is not directly available to download.
 )
 # GMP
 rez_set_archive(
-    gmp_url gmp/gmp-${gmp_version}.tar.bz2
+    gmp_url gmp/gmp-${GMP_VERSION}.tar.bz2
     ftp://gcc.gnu.org/pub/gcc/infrastructure/gmp-6.1.0.tar.bz2
 )
 # MPFR
 rez_set_archive(
-    mpfr_url mpfr/mpfr-${mpfr_version}.tar.bz2
+    mpfr_url mpfr/mpfr-${MPFR_VERSION}.tar.bz2
     ftp://gcc.gnu.org/pub/gcc/infrastructure/mpfr-3.1.4.tar.bz2
 )
 # MPC
 rez_set_archive(
-    mpc_url mpc/mpc-${mpc_version}.tar.gz
+    mpc_url mpc/mpc-${MPC_VERSION}.tar.gz
     ftp://gcc.gnu.org/pub/gcc/infrastructure/mpc-1.0.3.tar.gz
 )
 # ISL
 rez_set_archive(
-    isl_url isl/isl-${isl_version}.tar.bz2
+    isl_url isl/isl-${ISL_VERSION}.tar.bz2
     ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2
 )
 # CLooG
 rez_set_archive(
-    cloog_url cloog/cloog-${cloog_version}.tar.gz
+    cloog_url cloog/cloog-${CLOOG_VERSION}.tar.gz
     ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
 )
 
 # The environment variable REZ_TMP_PATH is meant to point to a location such as "/tmp/rez".
-set(EXTRACT_DIR $ENV{REZ_TMP_PATH}/gcc/${gcc_version})
-set(BUILD_DIR ${EXTRACT_DIR}/objdir)
+set(EXTRACT_DIR $ENV{REZ_TMP_PATH}/gcc/${REZ_BUILD_PROJECT_VERSION})
+set(BUILD_DIR ${EXTRACT_DIR}/build/objdir)
 
 # We configure/build/install GCC through the ExternalProject_Add macro,
 # using three different shell scripts for each of these steps.
 # If necessary, it is possible to skip one of these steps by replacing the command
 # by "", an empty string.
 ExternalProject_Add(
-    build_gcc
-    URL ${gcc_url}
+    BUILD_GCC
+    URL ${GCC_URL}
     PREFIX gcc
     SOURCE_DIR ${EXTRACT_DIR}
-    CONFIGURE_COMMAND bash ${CMAKE_SOURCE_DIR}/configure.sh ${EXTRACT_DIR} ${CMAKE_INSTALL_PREFIX} ${gcc_version} ${gmp_version} ${mpfr_version} ${mpc_version} ${isl_version} ${cloog_version}
-    BUILD_COMMAND bash ${CMAKE_SOURCE_DIR}/build.sh ${BUILD_DIR} ${gcc_version}
-    INSTALL_COMMAND bash ${CMAKE_SOURCE_DIR}/install.sh ${BUILD_DIR} ${gcc_version}
+    CONFIGURE_COMMAND bash ${CMAKE_SOURCE_DIR}/configure.sh ${EXTRACT_DIR} ${BUILD_DIR} ${GMP_VERSION} ${MPFR_VERSION} ${MPC_VERSION} ${ISL_VERSION} ${CLOOG_VERSION}
+    BUILD_COMMAND bash ${CMAKE_SOURCE_DIR}/build.sh ${BUILD_DIR}
+    INSTALL_COMMAND bash ${CMAKE_SOURCE_DIR}/install.sh ${BUILD_DIR}
 )
 
 # We use a bogus CMake "install" step in order to be able to properly finish
@@ -72,6 +71,6 @@ ExternalProject_Add(
 install(
     CODE
     "execute_process(
-        COMMAND echo \"\n[CMAKE] GCC-${gcc_version} PACKAGE SETUP FINISHED!\n\"
+        COMMAND echo \"\n[CMAKE] GCC-${REZ_BUILD_PROJECT_VERSION} PACKAGE SETUP FINISHED!\n\"
     )"
 )
