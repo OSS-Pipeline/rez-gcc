@@ -6,7 +6,7 @@ set -e
 BUILD_PATH=$1
 GCC_VERSION=${REZ_BUILD_PROJECT_VERSION}
 
-# We print the arguments passed to the Bash script
+# We print the arguments passed to the Bash script.
 echo -e "\n"
 echo -e "============="
 echo -e "=== BUILD ==="
@@ -18,7 +18,7 @@ echo -e "[BUILD][ARGS] GCC VERSION: ${GCC_VERSION}"
 
 cd ${BUILD_PATH}
 
-# We build GCC
+# We build GCC.
 echo -e "\n"
 echo -e "[BUILD] Building GCC-${GCC_VERSION}..."
 echo -e "\n"
