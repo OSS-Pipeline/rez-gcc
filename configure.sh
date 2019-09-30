@@ -95,7 +95,7 @@ else
     mkdir -p ${BUILD_PATH}
     cd ${BUILD_PATH}
 
-    ${EXTRACT_PATH}/configure --prefix=${INSTALL_PATH} --enable-languages=c,c++ --disable-multilib --disable-bootstrap --enable-threads=posix --with-pic
+    ${EXTRACT_PATH}/configure --prefix=${INSTALL_PATH} --enable-languages=c,c++ --with-pic --disable-multilib --disable-bootstrap --enable-threads=posix
 fi
 
 echo -e "\n"
