@@ -49,4 +49,4 @@ def commands():
     # Helper environment variables.
     env.GCC_BINARY_PATH.set("{root}/bin")
     env.GCC_INCLUDE_PATH.set("{root}/include")
-    env.GCC_LIBRARY_PATH.set("{root}/lib:{root}/lib/gcc/x86_64-pc-linux-gnu/" + str(version))
+    env.GCC_LIBRARY_PATH.set("{root}/lib64:{root}/lib/gcc/x86_64-pc-linux-gnu/" + str(version))
