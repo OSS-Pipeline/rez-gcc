@@ -41,10 +41,10 @@ with scope("config") as config:
 uuid = "gcc-{version}".format(version=str(version))
 
 def commands():
-    env.PATH.append("{root}/bin")
-    env.CC.append("{root}/bin/gcc")
-    env.CXX.append("{root}/bin/g++")
-    env.LD_LIBRARY_PATH.append("{root}/lib64:{root}/lib/gcc/x86_64-pc-linux-gnu/" + str(version))
+    env.PATH.prepend("{root}/bin")
+    env.CC.prepend("{root}/bin/gcc")
+    env.CXX.prepend("{root}/bin/g++")
+    env.LD_LIBRARY_PATH.prepend("{root}/lib64:{root}/lib/gcc/x86_64-pc-linux-gnu/" + str(version))
 
     # Helper environment variables.
     env.GCC_BINARY_PATH.set("{root}/bin")
