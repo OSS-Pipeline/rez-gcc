@@ -31,6 +31,16 @@ echo -e "[CONFIGURE][ARGS] ISL VERSION: ${ISL_VERSION}"
 echo -e "[CONFIGURE][ARGS] CLOOG VERSION: ${CLOOG_VERSION}"
 echo -e "[CONFIGURE][ARGS] REZ REPO PATH: ${REZ_REPO_PAYLOAD_DIR}"
 
+# We check if the arguments variables we need are correctly set.
+# If not, we abort the process.
+if [[ -z ${EXTRACT_PATH} || -z ${BUILD_PATH} || -z ${INSTALL_PATH} || -z ${GCC_VERSION} || -z ${GMP_VERSION} || -z ${MPFR_VERSION} || -z ${MPC_VERSION} || -z ${ISL_VERSION} || -z ${CLOOG_VERSION} || -z ${REZ_REPO_PAYLOAD_DIR} ]]; then
+    echo -e "\n"
+    echo -e "[CONFIGURE][ARGS] One or more of the argument variables are empty. Aborting..."
+    echo -e "\n"
+
+    exit 1
+fi
+
 # We setup the paths of each archive we have to extract.
 GMP_ARCHIVE_PATH=${REZ_REPO_PAYLOAD_DIR}/gmp/gmp-${GMP_VERSION}.tar.bz2
 MPFR_ARCHIVE_PATH=${REZ_REPO_PAYLOAD_DIR}/mpfr/mpfr-${MPFR_VERSION}.tar.bz2
@@ -89,14 +99,10 @@ echo -e "\n"
 echo -e "[CONFIGURE] Running the configuration script from GCC-${GCC_VERSION}..."
 echo -e "\n"
 
-if [ -d ${BUILD_PATH} ]; then
-    cd ${BUILD_PATH}
-else
-    mkdir -p ${BUILD_PATH}
-    cd ${BUILD_PATH}
+mkdir -p ${BUILD_PATH}
+cd ${BUILD_PATH}
 
-    ${EXTRACT_PATH}/configure --prefix=${INSTALL_PATH} --enable-languages=c,c++ --with-pic --disable-multilib --disable-bootstrap --enable-threads=posix
-fi
+${EXTRACT_PATH}/configure --prefix=${INSTALL_PATH} --enable-languages=c,c++ --with-pic --disable-multilib --disable-bootstrap --enable-threads=posix
 
 echo -e "\n"
 echo -e "[CONFIGURE] Finished configuring GCC-${GCC_VERSION}!"

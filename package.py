@@ -38,12 +38,15 @@ build_system = "cmake"
 with scope("config") as config:
     config.build_thread_count = "logical_cores"
 
-# TODO: Use the SHA1 of the archive instead.
-uuid = "gcc-6.3.1"
+uuid = "gcc-{version}".format(version=str(version))
 
 def commands():
     env.PATH.append("{root}/bin")
     env.CC.append("{root}/bin/gcc")
     env.CXX.append("{root}/bin/g++")
-    env.LD_LIBRARY_PATH.append("{root}/lib64:{root}/lib/gcc/x86_64-pc-linux-gnu/6.3.1")
-    env.GCC_ROOT.append("{root}")
+    env.LD_LIBRARY_PATH.append("{root}/lib64:{root}/lib/gcc/x86_64-pc-linux-gnu/" + str(version))
+
+    # Helper environment variables.
+    env.GCC_BINARY_PATH.set("{root}/bin")
+    env.GCC_INCLUDE_PATH.set("{root}/include")
+    env.GCC_LIBRARY_PATH.set("{root}/lib:{root}/lib/gcc/x86_64-pc-linux-gnu/" + str(version))
