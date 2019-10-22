@@ -104,11 +104,13 @@ cd ${BUILD_PATH}
 
 ${EXTRACT_PATH}/configure \
     --prefix=${INSTALL_PATH} \
-        --enable-languages=c,c++ \
-        --with-pic \
-        --disable-multilib \
-        --disable-bootstrap \
-        --enable-threads=posix
+    CFLAGS="-fPIC" \
+    CXXFLAGS="-fPIC" \
+    --with-pic \
+    --enable-languages=c,c++ \
+    --disable-multilib \
+    --disable-bootstrap \
+    --enable-threads=posix
 
 echo -e "\n"
 echo -e "[CONFIGURE] Finished configuring GCC-${GCC_VERSION}!"
